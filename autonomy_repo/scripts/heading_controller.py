@@ -12,7 +12,12 @@ class HeadingController(BaseHeadingController):
         super().__init__()  # Call the parent class's __init__ method
 
         # Proportional control gain
-        self.kp = 2.0
+        self.declare_parameter("kp", 2.0)
+        
+    @property
+    def kp(self) -> float:
+        """ Retrieve the real-time value of the kp parameter """
+        return self.get_parameter("kp").value
 
 
     def compute_control_with_goal(self, state: TurtleBotState, goal: TurtleBotState) -> TurtleBotControl:
